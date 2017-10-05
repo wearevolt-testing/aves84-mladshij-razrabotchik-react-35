@@ -1,0 +1,16 @@
+.customers.container .list > h1 {
+  display: inline-block;
+  margin-right: 2rem;
+}
+
+.modal-body ul.headers {
+  list-style: none;
+}
+.modal-body ul.headers h5 {
+  font-weight: bold;
+  font-size: 1.3rem;
+}
+.modal-body ul.headers p {
+  margin-left: 3rem;
+  font-size: 1.7rem;
+}
