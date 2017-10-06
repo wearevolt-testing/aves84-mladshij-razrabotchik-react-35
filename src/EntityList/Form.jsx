@@ -11,10 +11,10 @@ const FieldGroup = ({id, label, help, ...props}) => <FormGroup controlId={id}>
 
 export default props => {
   let form, title, show = true;
-  
+    
   switch (props.type) {
-    case 'create': title = 'Create new customer'; break;
-    case 'edit': title = 'Edit customer'; break;
+    case 'create': title = `Create new ${props.title}`; break;
+    case 'edit': title = `Edit ${props.title}`; break;
     default: show = false;
   }
 
@@ -25,8 +25,7 @@ export default props => {
     ), props.type);
   }
 
-  const {name, address, phone} = props.customers[props.id] || {};
-
+  const entry = props.data[props.id] || {};
   return <Modal show={show} onHide={props.onHide}>
     <Modal.Header closeButton>
       <Modal.Title>{title}</Modal.Title>
@@ -34,9 +33,7 @@ export default props => {
     
     <Modal.Body>
       <form onSubmit={onSubmit} ref={c => form = c}>
-        <FieldGroup id={'name'} label={'Name'} defaultValue={name} />
-        <FieldGroup id={'address'} label={'Address'} defaultValue={address} />
-        <FieldGroup id={'phone'} label={'Phone'} defaultValue={phone} />
+        {props.fields.map(([k, v]) => <FieldGroup key={k} id={k} label={v} defaultValue={entry[k]} />)}
       </form>
     </Modal.Body>
     

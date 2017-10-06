@@ -14,14 +14,29 @@ import {Helmet} from 'react-helmet';
 import 'react-select/dist/react-select.css';
 import './style.css';
 
-import Customers, {reducer as customersReducer} from './Customers';
+import createListComponent from './EntityList';
 
-const store = createStore(combineReducers({
-  customers: customersReducer
-}), compose(
-  applyMiddleware(promiseMiddleware),
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-));
+
+const {Component: Products, reducer: products} = createListComponent({
+  name: 'product',
+  url: 'products',
+  fields: [['name', 'Name'], ['price', 'Price']],
+  stateName: 'products'
+});
+const {Component: Customers, reducer: customers} = createListComponent({
+  name: 'customer',
+  url: 'customers',
+  fields: [['name', 'Name'], ['address', 'Address'], ['phone', 'Phone']],
+  stateName: 'customers'
+});
+
+const store = createStore(
+  combineReducers({customers, products}),
+  compose(
+    applyMiddleware(promiseMiddleware),
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  )
+);
 
 const App = () => <Provider store={store}>
   <Router>
@@ -43,6 +58,7 @@ const App = () => <Provider store={store}>
       </header>
       
       <Route path='/customers' component={Customers}/>
+      <Route path='/products' component={Products}/>
     </div>
   </Router>
 </Provider>;

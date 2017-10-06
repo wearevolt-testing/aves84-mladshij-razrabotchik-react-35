@@ -9,31 +9,28 @@ class TableRow extends React.PureComponent {
   render() {
     return <tr onClick={() => this.props.onClick(this.props.id)}>
       <td>{this.props.i}</td>
-      <td>{this.props.name}</td>
-      <td>{this.props.address}</td>
-      <td>{this.props.phone}</td>
+      {this.props.fields.map(([k]) => <td key={k}>{this.props[k]}</td>)}
     </tr>;
   }
 }
 
 
 export default props => <div className='list'>
-  <h1>Customer list</h1><Button onClick={() => props.openCustomerForm('create')}>Create</Button>
+  <h1>{props.title} list</h1><Button onClick={() => props.openForm('create')}>Create</Button>
   <Table condensed hover>
     <thead>
       <tr>
         <th>#</th>
-        <th>Name</th>
-        <th>Address</th>
-        <th>Phone</th>
+        {props.fields.map(([k, v]) => <th key={k}>{v}</th>)}
       </tr>
     </thead>
     <tbody>
-      {props.customers.list.map((e, i) => <TableRow
+      {props.list.map((e, i) => <TableRow
         key={e}
         i={i}
-        {...props.customers.data[e]}
-        onClick={props.openCustomer}
+        fields={props.fields}
+        {...props.data[e]}
+        onClick={props.openEntry}
       />)}
     </tbody>
   </Table>
