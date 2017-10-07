@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {Grid} from 'react-bootstrap';
-import {Helmet} from 'react-helmet';
 
 import List from './List';
 import Entry from './Entry';
@@ -13,13 +12,15 @@ import withContext from '../lib/withContext';
 
 class EntityList extends React.Component {
   static contextTypes = {
-    name: PropTypes.string
+    name: PropTypes.string,
+    title: PropTypes.string
   };
 
   state = {};
 
   componentWillMount() {
     this.props.getList();
+    document.title = this.context.title;
   }
 
   openForm = type => this.setState({form: type});
@@ -45,10 +46,6 @@ class EntityList extends React.Component {
 
   render() {
     return <Grid className={`${this.context.name} entity-list`}>
-      <Helmet>
-        <title>{this.props.title}</title>
-      </Helmet>
-
       <List
         list={this.props.list}
         data={this.props.data}

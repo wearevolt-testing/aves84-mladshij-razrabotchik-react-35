@@ -2,7 +2,6 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import {Grid, Table, Button} from 'react-bootstrap';
 
-
 class TableRow extends React.PureComponent {
   render() {
     return <tr>
@@ -20,6 +19,7 @@ export default class InvoiceList extends React.Component {
     this.props.getList();
     this.props.getCustomerList();
     this.composeListData(this.props.customers, this.props.invoices);
+    document.title = 'Invoices';
   }
 
   componentWillReceiveProps(nextProps) {
