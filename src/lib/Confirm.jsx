@@ -10,7 +10,7 @@ export default props => <Modal show={props.show} onHide={props.onHide}>
   <Modal.Body>
     {props.message}
   </Modal.Body>
-  
+
   <Modal.Footer>
     <Button bsStyle='primary' onClick={props.onHide}>Cancel</Button>
     <Button bsStyle='danger' onClick={props.confirm}>Confirm</Button>

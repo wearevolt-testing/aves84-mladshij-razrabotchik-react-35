@@ -1,4 +1,4 @@
-.entity-list.container .list > h1 {
+.list > h1 {
   display: inline-block;
   margin-right: 2rem;
 }
@@ -13,4 +13,28 @@
 .modal-body ul.headers p {
   margin-left: 3rem;
   font-size: 1.7rem;
+}
+
+#discount {
+  max-width: 10rem;
+}
+#customer_id {
+  max-width: 35rem;
+}
+#product_id {
+  max-width: 30rem;
+  margin-right: 1rem;
+}
+.abreast {
+  display: flex;
+}
+
+.controls button {
+  min-width: 12rem;
+  margin-right: 1rem;
+}
+
+.invoices.list td a {
+  font-size: 1.7rem;
+  
 }

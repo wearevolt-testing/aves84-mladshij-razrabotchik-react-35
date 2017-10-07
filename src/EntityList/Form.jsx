@@ -1,20 +1,15 @@
 import React from 'react';
-import {Modal, Button, FormGroup, ControlLabel, FormControl, HelpBlock} from 'react-bootstrap';
+import PropTypes from 'prop-types';
+import {Modal, Button} from 'react-bootstrap';
 
+import FieldGroup from '../lib/FieldGroup';
 
-const FieldGroup = ({id, label, help, ...props}) => <FormGroup controlId={id}>
-  <ControlLabel>{label}</ControlLabel>
-  <FormControl {...props} />
-  {help && <HelpBlock>{help}</HelpBlock>}
-</FormGroup>;
-
-
-export default props => {
+const Form = (props, context) => {
   let form, title, show = true;
-    
+
   switch (props.type) {
-    case 'create': title = `Create new ${props.title}`; break;
-    case 'edit': title = `Edit ${props.title}`; break;
+    case 'create': title = `Create new ${context.title}`; break;
+    case 'edit': title = `Edit ${context.title}`; break;
     default: show = false;
   }
 
@@ -30,15 +25,23 @@ export default props => {
     <Modal.Header closeButton>
       <Modal.Title>{title}</Modal.Title>
     </Modal.Header>
-    
+
     <Modal.Body>
       <form onSubmit={onSubmit} ref={c => form = c}>
-        {props.fields.map(([k, v]) => <FieldGroup key={k} id={k} label={v} defaultValue={entry[k]} />)}
+        {context.fields.map(([k, v]) => <FieldGroup key={k} id={k} label={v} defaultValue={entry[k]} />)}
       </form>
     </Modal.Body>
-    
+
     <Modal.Footer>
       <Button type='submit' bsStyle='primary' onClick={onSubmit}>Submit</Button>
     </Modal.Footer>
   </Modal>;
 };
+
+Form.contextTypes = {
+  title: PropTypes.string,
+  fields: PropTypes.array
+};
+
+
+export default Form;
